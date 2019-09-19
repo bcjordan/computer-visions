@@ -48,6 +48,101 @@ Instead of just looking at pixel values, get better set of [eigenvectors](http:/
 
 90% of variance is covered by the first EVs (principal components / eigenvectors).
 
- 
+JPEG: applies discrete cosine transform: every 8x8, assign a code, determine how you need to add the encoded entities.
+
+## Discriminative vs. Generative Modeling
+
+**Discriminative models**: directly estimate P(y|x)
+
+* Learn decision boundary.
+* E.g. regressions, SVMs (draw a line/curve/etc. to separate items)
+
+**Generative models**: estimate P(x|y) to deduce P(y|x)
+
+* Learn probability distributions of data
+* e.g. [Gaussian Discriminant Analysis](https://towardsdatascience.com/gaussian-discriminant-analysis-an-example-of-generative-learning-algorithms-2e336ba7aa5c), [Naive Bayes](https://towardsdatascience.com/introduction-to-naive-bayes-classification-4cffabb1ae54)
+
+# Generative Modeling
+
+* Check out [6.S191](http://introtodeeplearning.com/#schedule)
+
+Goal: take input samples, create generated samples.
+
+If one showed you a bunch of input samples, and asked you to draw another, you probably could. *Idea: could be an unplugged activity.*
+    Activity: guess which drawing was the generated one.
+
+From density estimation / compact representation, you can generate new data.  
+
+## Autoencoders
+
+    Input -> Encoder < Compact latent representation > -> Decoder -> Reconstruction
+      |                                                                        |
+      --------------------------------------------------------------------- loss
+      
+      
+* Encoder takes data (high dimensions), encodes to very small bottleneck
+* Autoencoding is a form of compression. Smaller latent space forces a larger training bottleneck.
+* 2500 to 2 numbers. For easy dataset, compression can be huge.
+* Can use autoencoder to warm up discriminator
+* Autoencoders are good for de-noising images, smoothing motion capture
+
+Can you use autoencoders to generate NEW data, cats the world hasn't seen before?
+
+Problem: latent feature space (center) is unbounded, e.g. 5 random numbers, no MEANING.
+
+One idea: assigning meaning to the features. Conditional GANs, GANs, use them to tweak meaningfully.
+
+**Variational autoencoder (VAE)** - sample from mean / variance distribution (gaussian distribution)
+    Sampling itself is non-deterministic and involves randomness
+    Decoder takes sample, decodes back to something that looks like input image.
+    
+You train the VAE. Diff btwn input and output is the *reconstruction loss*.
+
+Autoencoder vs VAE
+
+VAE creates density estimation
+
+Variational part gives intuition of what to do when generate the data
+Instead of random #s, its a probability distribution
+Reparameterization
+
+## Generative Adversarial Networks (GANs)
+
+What if we don't care about autoencoding/decoding, JUST want samples out of distribution.
+
+Give random noise, generate new cats.
+
+Going from 10 numbers to a million, training decoder is difficult.
+
+Ian Goodfellow 2014 ([pdf](https://arxiv.org/abs/1406.2661)) (over 8,600 citations)
+
+After a million iterations, discriminator won't be able to tell.
+
+## E.g. Playing game of GAN training
+
+give 8 fake samples, 4 real, train discriminator to tell if real vs. fake. ~10 iterations/epochs, then go back to generator.
+
+Discriminator, through backprop, tells generator **where it went wrong**, and how to update its weights.
+    Idea: if discriminator shared a shared higher dimension representation as to WHY it was wrong, as way to bootstrap early generator?
+
+Loss function is not simple.
+
+GANs are notoriously hard to train. Very slow.
+
+[Fei Fei Li](http://cs231n.stanford.edu/slides/2017/cs231n_2017_lecture13.pdf)
+
+Minimax
 
 
+## GAN supervision (CGAN, InfoGAN)
+
+* Deep Convolutional GANs (DCGans)
+    * [Radford 2015](https://arxiv.org/abs/1511.06434) 
+* VAE-GANs
+    * Sample from distribution instead of random #s (uniform gaussian distribution)
+    * Can do some arithmetic with latent variables (face + eyeglasses + gray hair etc.)
+    * Find the MODE for all bald people, put through VAE, get latent space for them. Average of that == baldness.
+* 
+    
+    
+   
