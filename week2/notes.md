@@ -158,6 +158,8 @@ Minimax
     * StyleGAN - add/mix features of different people
     * FUNIT Liu 19 - Turn dog into anything
     
-    
+Idea: Audio GANs style transfer
+
+
     
    
