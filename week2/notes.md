@@ -142,7 +142,22 @@ Minimax
     * Sample from distribution instead of random #s (uniform gaussian distribution)
     * Can do some arithmetic with latent variables (face + eyeglasses + gray hair etc.)
     * Find the MODE for all bald people, put through VAE, get latent space for them. Average of that == baldness.
-* 
+        * Idea: 
+* CGANs - conditional GANs ([Isola 2016](https://arxiv.org/abs/1611.07004))
+    * Also condition it with some extra information (Add labeling / classification alongside)
+    *  + InfoGAN
+    * Image to Image - semantic segmentation into real images
+    * [InfoGAN](https://arxiv.org/abs/1606.03657) - control thickness of pen, narrowness of digit
+        * Face pose, elevation, lighting, wide/narrow
+    * GauGAN - turning doodles into pictures
+    * S(something)GAN
+    * CycleGAN - horses to Zebras and back. [Zhu '17](https://junyanz.github.io/CycleGAN/), [Philip Isola @ MIT](http://web.mit.edu/phillipi/)
+    * pix2pix - [Isola](https://arxiv.org/abs/1611.07004)
+    * PGANs - progressive growing of GANs. 
+    * Big GAN - generates images of everything you would want to make.
+    * StyleGAN - add/mix features of different people
+    * FUNIT Liu 19 - Turn dog into anything
+    
     
     
    
